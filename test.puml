@@ -1,0 +1,4 @@
+@startuml
+main.c --> mkDerivation
+gcc --> mkDerivation
+@enduml

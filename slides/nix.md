@@ -1,18 +1,44 @@
 ---
-title: This is my presentation
-author: Jane Doe
+title: Nix
+author: Sjur Millidahl
+patat:
+  # images:
+  #  backend: auto
+  eval:
+    plantuml:
+        command: plantuml -tutxt -p
+        fragment: true # optional
+        replace: true # optional
+        container: code # optional
+  wrap: false
+  margins:
+    top: 2
+    bottom: 2
+    left: 8
+    right: 4
+    theme:
+        emph: [vividBlue, onVividBlack, italic]
+        strong: [bold]
+        imageTarget: [onDullWhite, vividRed]
+mainfont: Monaco
+monofont: Monaco
 ...
 
-# This is a slide
+# Nix
 
-Slide contents.  Yay.
+- Declerative language
+- Mind-magnet
+- (A linux distro)
 
 ---
 
-# Important title
+# The core idea
 
-Things I like:
+Building software can be a pure function
 
-- Markdown
-- Haskell
-- Pandoc
+```plantuml
+@startuml
+main.c --> mkDerivation
+gcc --> mkDerivation
+@enduml
+```
