@@ -1,4 +1,11 @@
 @startuml
-main.c --> mkDerivation
-gcc --> mkDerivation
+
+start
+fork
+:src;
+fork again
+:gcc;
+end merge
+stop
+
 @enduml

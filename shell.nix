@@ -1,7 +1,11 @@
-with (import ./pkgs.nix); mkShell {
+let pkgs = import ./pkgs.nix;
+    patat = pkgs.haskellPackages.patat;
+
+in with pkgs; mkShell {
     name = "nix-talk";
     packages = [ 
-        haskellPackages.patat
+        patat
         plantuml
+        watch # dev
     ];
 }
