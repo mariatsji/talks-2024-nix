@@ -86,3 +86,17 @@ nix -> Derivation
 
 @enduml
 ```
+
+# Example-time
+
+Malbolge
+
+* Ben Olmstead
+* 1998
+* Almost impossible to use
+* 2000 (first program)
+* By a beam search (lisp)
+
+# Build a docker image
+
+TODO put malbolge hello world in docker
