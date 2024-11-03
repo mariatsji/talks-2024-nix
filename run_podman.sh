@@ -1,0 +1,1 @@
+podman load < $(nix-build docker.nix)

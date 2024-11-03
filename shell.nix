@@ -1,13 +1,16 @@
-let pkgs = import ./pkgs.nix;
-    patat = pkgs.haskellPackages.patat;
+let pkgs = import ./pkgs.nix { system = builtins.currentSystem; };
+    malbolge = import ./malbolge.nix;
 
 in with pkgs; mkShell {
     name = "nix-talk";
+    
     packages = [ 
-        patat
+        haskellPackages.patat
         plantuml
-        watch # dev
+        watch
         podman
         qemu
+        malbolge
     ];
+
 }
