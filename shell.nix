@@ -7,5 +7,7 @@ in with pkgs; mkShell {
         patat
         plantuml
         watch # dev
+        podman
+        qemu
     ];
 }
