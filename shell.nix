@@ -1,4 +1,4 @@
-let pkgs = import ./pkgs.nix { system = builtins.currentSystem; };
+let pkgs = import ./pkgs.nix;
     malbolge = import ./malbolge.nix;
 
 in with pkgs; mkShell {

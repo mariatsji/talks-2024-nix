@@ -1,4 +1,3 @@
-let pkgs = (import ./pkgs.nix) { };
-    linuxPkgs = (import ./pkgs.nix) { system = "x86_64-linux"; };
+let pkgs = (import ./pkgs.nix);
     malbolge = import ./malbolge.nix;
 in malbolge

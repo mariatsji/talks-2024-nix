@@ -1,4 +1,4 @@
-let pkgs = import ./pkgs.nix { system = builtins.currentSystem; };
+let pkgs = import ./pkgs.nix;
     
 in with pkgs; stdenv.mkDerivation {
   name = "malbolge";
