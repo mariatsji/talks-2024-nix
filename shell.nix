@@ -8,8 +8,6 @@ in with pkgs; mkShell {
         haskellPackages.patat
         plantuml
         watch
-        podman
-        qemu
         malbolge
     ];
 
