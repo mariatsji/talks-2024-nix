@@ -1,15 +1,17 @@
-let pkgs = import ./pkgs.nix;
-    malbolge = import ./malbolge/default.nix;
-    # malbolge src code
-    hello.malbolge = ''
-      (=<`#9]~6ZY327Uv4-QsqpMn&+Ij"'E%e{Ab~w=_:]Kw%o44Uqp0/Q?xNvL:`H%c#DD2^WV>gY;dts76qKJImZkj
-    '';
-
-in pkgs.dockerTools.buildImage {
+with (import ./pkgs.nix); dockerTools.buildImage {
   name = "hello-world";
+  copyToRoot = buildEnv {
+    name = "image-root";
+    pathsToLink = ["/"];
+    paths = [
+      (import ./malbolge.nix)
+      ./src
+      coreutils
+      busybox
+      bash ];
+  };
 
-  copyToRoot = [ ./malbolge ];
   config = {
-    Cmd = [ "${malbolge}/bin/malbolge <(echo ${hello.malbolge})" ];
+    Cmd = [ "/bin/malbolge" "/hello.malbolge" ];
   };
 }
