@@ -13,10 +13,10 @@ patat:
     header: [vividGreen]
     blockQuote: [vividCyan]
   margins:
-    top: 2
-    bottom: 2
-    left: 8
-    right: 4
+    top: 1
+    bottom: 1
+    left: 6
+    right: 1
   transition:
     type: slideLeft
     duration: 0.25
@@ -24,19 +24,13 @@ mainfont: Monaco
 monofont: Monaco
 ...
 
-# Nix
+# Hello
 
-- Declerative language
-- (A linux distro)
-- Mind-virus
+Nix in 15 min
 
 ---
 
-# The core idea
-
-Building software can be a pure function
-
-Brings reproducibility
+# Pure functions
 
 ```txt
 +-----+    +-----+           
@@ -54,7 +48,7 @@ Brings reproducibility
 
 ---
 
-# On pure functions
+# Properties of pure functions
 
 * Reproducible
 * Input => Output
@@ -67,6 +61,8 @@ Brings reproducibility
 ---
 
 # Builds as a pure function
+
+The core nix idea:
 
 ```txt
 +-----+    +-----+           
@@ -82,6 +78,16 @@ Brings reproducibility
 +-----+    +-----+           
 ```
 
+Reproducible!
+
+---
+
+# But whaaat is Nix
+
+- Declerative language
+- (A linux distro)
+- Mind-virus
+
 ---
 
 # Example-time
@@ -96,11 +102,15 @@ Malbolge
 
 ---
 
-default.nix
+malbolge.c
+```txt
+//c-code obfuscated for audience safety
+```
+
+malbolge.nix
 ```nix
-let tag = "https://github.com/NixOS/nixpkgs/archive/refs/tags/24.05.tar.gz";
-    pkgs = (import (builtins.fetchTarball {
-      url = tag;
+let pkgs = (import (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/24.05.tar.gz";
     }) {});
 
 in with pkgs; stdenv.mkDerivation {
@@ -116,17 +126,8 @@ in with pkgs; stdenv.mkDerivation {
 builder.sh
 ```bash
 export PATH="$coreutils/bin:$clang/bin"
-mkdir $out
-clang -o $out/malbolge $src/malbolge.c
-```
-
-malbolge.c
-```c
-(...)
-const char xlat1[] =
-  "+b(29e*j1VMEKLyC})8&m#~W>qxdRp0wkrUo[D7,XTcA\"lI"
-  ".v%{gJh4G\\-=O@5`_3i<?Z';FNQuY]szf$!BS/|t:Pn6^Ha";
-(...)
+mkdir -p $out/bin
+clang -o $out/bin/malbolge $src/malbolge.c
 ```
 
 ---
@@ -140,19 +141,21 @@ Build malbolge.nix
 # Example - build docker img with nix
 
 ```nix
-let pkgs = import ./pkgs.nix;
-    malbolge = import ./malbolge/default.nix;
-    # malbolge src code
-    hello.malbolge = ''
-      (=<`#9]~6ZY327Uv4-QsqpMn&+Ij"'E%e{Ab~w=_:]Kw%o44Uqp0/Q?xNvL:`H%c#DD2^WV>gY;dts76qKJImZkj
-    '';
-
-in pkgs.dockerTools.buildImage {
+with (import ./pkgs.nix); dockerTools.buildImage {
   name = "hello-world";
+  copyToRoot = buildEnv {
+    name = "image-root";
+    pathsToLink = ["/"];
+    paths = [
+      (import ./malbolge.nix)
+      ./src
+      coreutils
+      busybox
+      bash ];
+  };
 
-  copyToRoot = [ ./malbolge ];
   config = {
-    Cmd = [ "${malbolge}/bin/malbolge <(echo ${hello.malbolge})" ];
+    Cmd = [ "/bin/malbolge" "/hello.malbolge" ];
   };
 }
 ```
@@ -162,3 +165,7 @@ in pkgs.dockerTools.buildImage {
 # Demo II
 
 Build docker.nix
+
+---
+
+Thank you for your attention
