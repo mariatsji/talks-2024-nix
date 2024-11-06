@@ -6,8 +6,6 @@ in with pkgs; mkShell {
     
     packages = [ 
         haskellPackages.patat
-        plantuml
-        watch
         malbolge
     ];
 

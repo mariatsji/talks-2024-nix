@@ -5,12 +5,6 @@ patat:
   # images:
   #  backend: auto
   incrementalLists: true
-  eval:
-    plantuml:
-        command: plantuml -ttxt -p
-        fragment: false # optional
-        replace: true # optional
-        container: code # optional
   wrap: false
   theme:
     codeBlock: [onDullBlack, vividGreen]
@@ -44,15 +38,18 @@ Building software can be a pure function
 
 Brings reproducibility
 
-```plantuml
-@startuml
-Input : a
-Output : b
-Function : f
-
-Input -> Function
-Function -> Output
-@enduml
+```txt
++-----+    +-----+           
+|     |    |     |           
+|  a  +--->|     |           
+|     |    |     |    +-----+
++-----+    |     |    |     |
+           |  f  +--->| out |
++-----+    |     |    |     |
+|     |    |     |    +-----+
+|  b  +--->|     |           
+|     |    |     |           
++-----+    +-----+           
 ```
 
 ---
@@ -71,20 +68,18 @@ Function -> Output
 
 # Builds as a pure function
 
-```plantuml
-@startuml
-
-Source : hello.c
-Tool : gcc
-nix : mkDerivation
-
-Source -> nix
-Tool -> nix
-
-Derivation : bin/hello
-nix -> Derivation
-
-@enduml
+```txt
++-----+    +-----+           
+|     |    |     |           
+| src +--->|     |           
+|     |    |     |    +-----+
++-----+    |     |    |     |
+           | nix +--->| out |
++-----+    |     |    |     |
+|     |    |     |    +-----+
+| gcc +--->|     |           
+|     |    |     |           
++-----+    +-----+           
 ```
 
 ---
