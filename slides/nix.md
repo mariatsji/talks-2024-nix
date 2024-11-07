@@ -104,7 +104,7 @@ Malbolge
 
 malbolge.c
 ```txt
-//c-code obfuscated for audience safety
+//c-code omitted for audience safety
 ```
 
 malbolge.nix
@@ -127,7 +127,7 @@ builder.sh
 ```bash
 export PATH="$coreutils/bin:$clang/bin"
 mkdir -p $out/bin
-clang -o $out/bin/malbolge $src/malbolge.c
+clang $src/malbolge.c -o $out/bin/malbolge
 ```
 
 ---
@@ -135,6 +135,11 @@ clang -o $out/bin/malbolge $src/malbolge.c
 # Demo I
 
 Build malbolge.nix
+
+hello.malbolge
+```malbolge
+(=<`#9]~6ZY327Uv4-QsqpMn&+Ij"'E%e{Ab~w=_:]Kw%o44Uqp0/Q?xNvL:`H%c#DD2^WV>gY;dts76qKJImZkj
+```
 
 ---
 
