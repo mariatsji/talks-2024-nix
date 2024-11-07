@@ -4,7 +4,7 @@ in with pkgs; stdenv.mkDerivation {
   name = "malbolge";
   builder = "${bash}/bin/bash";
   args = [ ./builder.sh ];
-  inherit clang coreutils;
+  inherit gcc coreutils;
   src = ./.;
   system = builtins.currentSystem;
 }

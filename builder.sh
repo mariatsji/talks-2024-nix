@@ -1,3 +1,3 @@
-export PATH="$coreutils/bin:$clang/bin"
+export PATH="$coreutils/bin:$gcc/bin"
 mkdir -p $out/bin
-clang $src/malbolge.c -o $out/bin/malbolge
+gcc $src/malbolge.c -o $out/bin/malbolge
